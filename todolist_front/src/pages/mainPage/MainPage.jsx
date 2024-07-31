@@ -3,20 +3,36 @@ import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import ListContainer from '../../components/ListContainer/ListContainer';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
+import api from '../../api/instanse';
+import { dateStateAtom } from '../../components/atoms/dateAtom';
+import { useRecoilState } from 'recoil';
 
 function MainPage(props) {
-    
-    const [ todoList, setTodoList ] = useState("");
 
+    const [ dateState, setDateState ] = useRecoilState(dateStateAtom);
     
+    const [ todoList, setTodoList ] = useState([]); // list -> 배열로 초기설정
+
+    const getTodoList = async () => {
+        let responseDate = null; // responsDate 의 값을 바꿀 예정이기 때문에 let을 사용 / 초기 null로 설정
+        
+        try {
+            responseDate = await api.get(`/todolist/${dateState}`);
+            setTodoList(responseDate.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     return (
         <div css={s.MainPageLayout}>
-            <HeaderContainer />
+            <HeaderContainer getTodoList={getTodoList}/>
             <div css={s.listContainerLayout}>
-                <ListContainer />   
-                <ListContainer />
-                <ListContainer />
+                <ListContainer todoList={todoList} getTodoList={getTodoList} />
+                <ListContainer todoList={todoList.filter(todo => todo.status === 0)} getTodoList={getTodoList} />
+                <ListContainer todoList={todoList.filter(todo => todo.status === 1)} getTodoList={getTodoList}/>
             </div>
         </div>
     );

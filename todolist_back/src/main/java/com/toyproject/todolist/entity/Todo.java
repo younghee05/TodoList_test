@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-// service <entity
+// service < entity
 public class Todo {
     private int todoId;
     private String content;

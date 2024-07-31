@@ -10,4 +10,38 @@
             todolist_tb
         values(0, #{content}, #{status}, #{date})
     </insert>
+    <update id="updateStatus" parameterType="int">
+        update todolist_tb
+        set
+            status = not status
+        where
+            todoId = #{todoId}
+    </update>
+    <update id="updateTodo">
+        update
+            todolist_tb
+        set
+            content = #{content}
+        where
+            todoId = #{todoId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete
+        from
+            todolist_tb
+        where
+            todoId = #{todoId}
+    </delete>
+
+    <select id="findTodoList" resultType="com.toyproject.todolist.entity.Todo">
+        select
+            todoId,
+            content,
+            status
+        from
+            todolist_tb
+        where
+            date like concat("%", #{date}, "%")
+    </select>
 </mapper>

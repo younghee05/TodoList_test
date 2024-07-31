@@ -47,12 +47,23 @@ export const ButtonLayout = css`
 export const InputAndButtonLayout = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: flex-start;
-    width: 100%;
+    justify-content: center;
+    margin: 5px 1200px 0px 80px;
+    height: 50px;
     
 `;
 
-export const InputAndButton = css`
+export const dateInput = css`
     box-sizing: border-box;
+    margin-left: 20px;
+    border: 1px solid #000000;
+
+`;
+
+export const searchButton = css`
+    box-sizing: border-box;
+    margin-left: 6px;
+    width: 60px;
+    border: 1px solid #000000;
     
 `;

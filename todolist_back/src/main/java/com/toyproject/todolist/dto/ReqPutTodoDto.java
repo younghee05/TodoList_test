@@ -5,9 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class ReqAddTodoDto {
+public class ReqPutTodoDto {
+    private int todoId;
     private String content;
-    private int status;
-    private String Date;
-
 }
