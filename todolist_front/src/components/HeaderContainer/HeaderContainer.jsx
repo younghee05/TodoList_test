@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import api from '../../api/instanse';
@@ -14,6 +14,10 @@ function HeaderContainer({ getTodoList }) {
         status: 0,
         date: ""
     });
+
+    useEffect(() => {
+        getTodoList();
+    }, [dateState])
 
     // // 위에 date 값과 dateChange 안에 쓰는 date 값이 다를 수 있기때문에 
     // // 상태를 두개로 만든 것 
@@ -35,19 +39,27 @@ function HeaderContainer({ getTodoList }) {
         });
     }
 
+    const handleInputKeyDown = (e) => {
+        if(e.keyCode === 13) {
+            handleAddClick();
+        }
+    }
+
+
     const handleAddClick = async () => {
         let responseData = null;
         try {
             responseData = await api.post("/todo", todo);
             console.log(responseData.data);
             getTodoList();
+            setTodo({
+                content: "",
+                status: 0,
+                date: ""
+            });
         } catch (error) {
             console.error(error);
         }
-    }
-
-    const handleSearchClick = () => {
-        getTodoList();
     }
 
     const handleDateChange = (e) => {
@@ -61,14 +73,13 @@ function HeaderContainer({ getTodoList }) {
             <div css={s.TitleLayout}>
                 <h1 css={s.h1Title}><span>📋 </span>TODOLIST</h1>
                 <div css={s.InputLayout}>
-                    <input css={s.Input} type="text" name='content' value={todo.content} onChange={handleInputChange} />
+                    <input css={s.Input} type="text" name='content' value={todo.content} onChange={handleInputChange} onKeyDown={handleInputKeyDown}/>
                     <button css={s.ButtonLayout} onClick={handleAddClick}>추가</button>
                 </div>
             </div>
 
-            <div css={s.InputAndButtonLayout}>
+            <div css={s.InputByLayout}>
                 <input css={s.dateInput} type="month" value={dateState} onChange={handleDateChange}/>
-                <button css={s.searchButton} onClick={handleSearchClick} >조회</button>
             </div>
             
         </div>

@@ -3,7 +3,6 @@ package com.toyproject.todolist.service;
 import com.toyproject.todolist.controller.TodoController;
 import com.toyproject.todolist.dto.ReqAddTodoDto;
 import com.toyproject.todolist.dto.ReqPutTodoDto;
-import com.toyproject.todolist.dto.RespDeleteDto;
 import com.toyproject.todolist.dto.RespGetListDto;
 import com.toyproject.todolist.entity.Todo;
 import com.toyproject.todolist.repository.TodoMapper;
@@ -66,6 +65,11 @@ public class TodoServiceImpl implements TodoService {
                 .content(reqPutTodoDto.getContent())
                 .build();
         return todoMapper.updateTodo(todo);
+    }
+
+    @Override
+    public String getTodo(int todoId) {
+        return todoMapper.getTodo(todoId);
     }
 
 

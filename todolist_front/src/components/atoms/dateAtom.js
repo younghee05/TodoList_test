@@ -1,6 +1,11 @@
 import { atom } from "recoil";
 
+const today = new Date();
+const year = today.getFullYear();
+const temp = today.getMonth() + 1;
+const month = temp - 10 < 0 ? "0" + temp : temp 
+
 export const dateStateAtom = atom({
     key: "dateState",
-    default: ""
+    default: year + "-" + month
 });

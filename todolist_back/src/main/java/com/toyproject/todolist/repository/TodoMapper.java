@@ -16,4 +16,6 @@ public interface TodoMapper {
     int updateStatus(int id);
 
     int updateTodo(Todo todo);
+
+    String getTodo(int todoId);
 }

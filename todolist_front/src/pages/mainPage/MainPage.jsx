@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import ListContainer from '../../components/ListContainer/ListContainer';
 /** @jsxImportSource @emotion/react */
@@ -12,6 +12,10 @@ function MainPage(props) {
     const [ dateState, setDateState ] = useRecoilState(dateStateAtom);
     
     const [ todoList, setTodoList ] = useState([]); // list -> 배열로 초기설정
+
+    useEffect(() => {
+        getTodoList();
+    }, []);
 
     const getTodoList = async () => {
         let responseDate = null; // responsDate 의 값을 바꿀 예정이기 때문에 let을 사용 / 초기 null로 설정
@@ -28,11 +32,11 @@ function MainPage(props) {
 
     return (
         <div css={s.MainPageLayout}>
-            <HeaderContainer getTodoList={getTodoList}/>
+            <HeaderContainer getTodoList={getTodoList} />
             <div css={s.listContainerLayout}>
-                <ListContainer todoList={todoList} getTodoList={getTodoList} />
-                <ListContainer todoList={todoList.filter(todo => todo.status === 0)} getTodoList={getTodoList} />
-                <ListContainer todoList={todoList.filter(todo => todo.status === 1)} getTodoList={getTodoList}/>
+                <ListContainer todoList={todoList} getTodoList={getTodoList} title={"전체"} />
+                <ListContainer todoList={todoList.filter(todo => todo.status === 0)} getTodoList={getTodoList} title={"미완료"}/>
+                <ListContainer todoList={todoList.filter(todo => todo.status === 1)} getTodoList={getTodoList} title={"완료"}/>
             </div>
         </div>
     );

@@ -17,4 +17,6 @@ public interface TodoService {
     int updateTodoStatus(int id);
 
     int updateTodo(ReqPutTodoDto reqPutTodoDto);
+
+    String getTodo(int todoId);
 }

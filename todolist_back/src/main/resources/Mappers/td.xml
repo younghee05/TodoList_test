@@ -44,4 +44,12 @@
         where
             date like concat("%", #{date}, "%")
     </select>
+    <select id="getTodo" resultType="java.lang.String">
+        select
+            content
+        from
+            todolist_tb
+        where
+            todoId = #{todoId}
+    </select>
 </mapper>
